@@ -1,11 +1,12 @@
 pipeline {
     agent any
 
-    triggers {
-        cron('0 10,17 * * *')
+    environment {
+        PYTHON = "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python314\\python.exe"
     }
 
     stages {
+
         stage('Checkout Code') {
             steps {
                 checkout scm
@@ -14,21 +15,31 @@ pipeline {
 
         stage('Setup Python') {
             steps {
-                echo 'Using system Python'
-                bat 'C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python314\\python.exe --version'
+                bat "\"${PYTHON}\" --version"
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                bat 'if exist requirements.txt pip install -r requirements.txt'
+                bat "\"${PYTHON}\" -m ensurepip --upgrade"
+                bat "\"${PYTHON}\" -m pip install --upgrade pip"
+                bat "\"${PYTHON}\" -m pip install -r requirements.txt"
             }
         }
 
         stage('Run Script') {
             steps {
-                bat 'C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python314\\python.exe barcelona_match_alert.py'
+                bat "\"${PYTHON}\" barcelona_match_alert.py"
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build completed successfully 🎉'
+        }
+        failure {
+            echo 'Build failed ❌ Check logs above'
         }
     }
 }
