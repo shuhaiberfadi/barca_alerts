@@ -15,7 +15,7 @@ pipeline {
         stage('Setup Python') {
             steps {
                 echo 'Using system Python'
-                bat 'C:\Users\user\AppData\Local\Programs\Python\Python314\python.exe --version'
+                bat 'C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python314\\python.exe --version'
             }
         }
 
@@ -27,7 +27,7 @@ pipeline {
 
         stage('Run Script') {
             steps {
-                bat 'C:\Users\user\AppData\Local\Programs\Python\Python314\python.exe barcelona_match_alert.py'
+                bat 'C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python314\\python.exe barcelona_match_alert.py'
             }
         }
     }
