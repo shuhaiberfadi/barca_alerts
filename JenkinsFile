@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    triggers {
+        cron('0 10,17 * * *')
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Setup Python') {
+            steps {
+                echo 'Using system Python'
+                bat 'python --version'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                bat 'if exist requirements.txt pip install -r requirements.txt'
+            }
+        }
+
+        stage('Run Script') {
+            steps {
+                bat 'python barcelona_match_alert.py'
+            }
+        }
+    }
+}
