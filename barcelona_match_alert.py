@@ -646,10 +646,11 @@ def send_email(subject: str, plain_text: str, html: str, ics_content: str | None
 
 def run_daily():
     print("Starting Barcelona Daily Alert Scheduler...")
-    schedule.every().day.at("10:00").do(main)
-    schedule.every().day.at("17:00").do(main)
-    while True:
-        schedule.run_pending()
+    #schedule.every().day.at("10:00").do(main)
+    #schedule.every().day.at("17:00").do(main)
+    main()
+    #while True:
+        #schedule.run_pending()
 
 
 def main():
